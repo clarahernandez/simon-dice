@@ -2,9 +2,43 @@ body{
     text-align: center;
 }
 
-.cuadro-verde{
-    background-color: green;
+#cuadro-verde-apagado{
+    background-color: #4af84a;
 }
-.cuadro-rojo {
+#cuadro-verde-prendido {
+    background-color: green;
+    border:solid darkolivegreen;
+}
+
+#cuadro-rojo-apagado {
+    background-color: #d53032;
+}
+
+#cuadro-rojo-prendido {
     background-color: red;
+}
+
+#cuadro-azul-apagado{
+    background-color: #3f888f;
+}
+#cuadro-azul-prendido {
+    background-color: blue;
+}
+
+#cuadro-amarillo-apagado{
+    background-color: #fbfb47;
+}
+#cuadro-amarillo-prendido {
+    background-color: yellow;
+}
+
+.oculto{
+    display: none;
+}
+
+#pantalla-juego{
+    padding: 0px;
+    margin: 30px;
+    border: solid ;
+    height: 500px;
 }
