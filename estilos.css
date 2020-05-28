@@ -1,44 +1,43 @@
-body{
+body {
     text-align: center;
 }
 
-#cuadro-verde-apagado{
+.verde-apagado {
     background-color: #4af84a;
 }
-#cuadro-verde-prendido {
+.verde-prendido {
     background-color: green;
-    border:solid darkolivegreen;
+    border: solid darkolivegreen;
 }
 
-#cuadro-rojo-apagado {
+.rojo-apagado {
     background-color: #d53032;
 }
 
-#cuadro-rojo-prendido {
+.rojo-prendido {
     background-color: red;
 }
 
-#cuadro-azul-apagado{
+.azul-apagado {
     background-color: #3f888f;
 }
-#cuadro-azul-prendido {
+.azul-prendido {
     background-color: blue;
 }
 
-#cuadro-amarillo-apagado{
+.amarillo-apagado {
     background-color: #fbfb47;
 }
-#cuadro-amarillo-prendido {
+.amarillo-prendido {
     background-color: yellow;
 }
 
-.oculto{
+.oculto {
     display: none;
 }
 
-#pantalla-juego{
+#pantalla-juego {
     padding: 0px;
     margin: 30px;
-    border: solid ;
     height: 500px;
 }
