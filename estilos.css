@@ -1,0 +1,10 @@
+body{
+    text-align: center;
+}
+
+.cuadro-verde{
+    background-color: green;
+}
+.cuadro-rojo {
+    background-color: red;
+}
