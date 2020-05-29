@@ -3,10 +3,10 @@ body {
 }
 
 .verde-apagado {
-    background-color: #4af84a;
+    background-color: #0c910c;
 }
 .verde-prendido {
-    background-color: green;
+    background-color: rgb(6, 250, 6);
     border: solid darkolivegreen;
 }
 
@@ -16,6 +16,7 @@ body {
 
 .rojo-prendido {
     background-color: red;
+    border: solid brown;
 }
 
 .azul-apagado {
@@ -23,13 +24,15 @@ body {
 }
 .azul-prendido {
     background-color: blue;
+    border: solid darkblue;
 }
 
 .amarillo-apagado {
-    background-color: #fbfb47;
+    background-color: #c9c91e;
 }
 .amarillo-prendido {
     background-color: yellow;
+    border: solid darkgoldenrod;
 }
 
 .oculto {
