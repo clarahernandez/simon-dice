@@ -12,19 +12,34 @@
     </head>
 
     <body>
+        <h1 class="display-4">Simón Dice</h1>
         <div class="container">
-            <h1 class="display-4">Simón Dice</h1>
             <p class="lead">
-                Para jugar pipiripi Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam,
-                ipsam explicabo ipsa dolores suscipit blanditiis atque possimus. Dolore eaque sequi
-                sed omnis cum illo amet odio unde ipsa, maxime asperiores.
+                Los cuadros de colores se van a iluminar, cuando termine tenés que repetir la
+                secuencia tal cual se mostró. Si te equivocás perdés! Solo tenés una vida. Para
+                ganar tenés que llegar a la ronda 10.
             </p>
-            <button type="button" id="boton-empezar" class="btn btn-outline-success">
-                Empezar
-            </button>
-            <button type="button" id="boton-reiniciar" class="btn btn-outline-danger oculto">
-                Reiniciar
-            </button>
+            <hr />
+            <br />
+            <div class="row row-cols-3">
+                <div class="col-sm-8 alert alert-primary" id="estado" role="alert">
+                    ¡Tocá en empezar para jugar!
+                </div>
+                <div class="col-sm-2 alert alert-warning" id="ronda" role="alert">Ronda: -</div>
+                <div class="col-sm-2">
+                    <button type="button" id="boton-empezar" class="btn btn-outline-success">
+                        Empezar
+                    </button>
+                    <button
+                        type="button"
+                        id="boton-reiniciar"
+                        class="btn btn-outline-danger oculto"
+                    >
+                        Reiniciar
+                    </button>
+                </div>
+            </div>
+
             <div class="row row-cols-2" id="pantalla-juego">
                 <div id="verde" class="col-sm-6 cuadro"></div>
                 <div id="rojo" class="col-sm-6 cuadro"></div>

@@ -1,31 +1,42 @@
-const NIVELES_MAX = 5;
+const RONDAS_MAX = 10;
 let simonDice = []; //lista de colores a seguir
 let ronda = 0;
 
 document.querySelector('#boton-empezar').onclick = comenzarJuego;
 
-document.querySelector('#boton-reiniciar').onclick = function (event) {
+document.querySelector('#boton-reiniciar').onclick = reiniciarJuego;
+
+function reiniciarJuego() {
+    bloquearInputUsuario();
     ocultarBotonReiniciar();
     mostrarBotonEmpezar();
-    event.preventDefault();
-};
+    actualizarEstado('secondary', '¡Tocá en empezar para jugar!');
+    actualizarRonda('-');
+    ronda = 0;
+    simonDice = [];
+    usuarioDice = [];
+}
 
 function comenzarJuego() {
     ocultarBotonEmpezar();
     mostrarBotonReiniciar();
-
     manejarRonda();
 }
 
-let numeroRonda = 0;
 function manejarRonda() {
+    if (ronda === RONDAS_MAX) {
+        ganar();
+        return;
+    }
     bloquearInputUsuario();
+    actualizarEstado('dark', 'Es el turno de la máquina.');
+    actualizarRonda(ronda);
     const RETRASO_TURNO_JUGADOR = (simonDice.length + 1) * 1000;
-    console.log(simonDice);
     simonDice = agregarPaso(simonDice);
     reproducir(simonDice);
 
     setTimeout(function () {
+        actualizarEstado('primary', 'Es tu turno.');
         desbloquearInputUsuario();
     }, RETRASO_TURNO_JUGADOR);
 
@@ -72,9 +83,25 @@ function manejarInputUsuario(e) {
 }
 
 function perder() {
+    actualizarEstado('warning', '¡Perdiste!');
     bloquearInputUsuario();
-    ocultarBotonReiniciar();
-    mostrarBotonEmpezar();
+    setTimeout(function () {
+        reiniciarJuego();
+    }, 3000);
+}
+
+function actualizarEstado(clase, texto) {
+    const $estado = document.querySelector('#estado');
+    $estado.textContent = texto;
+    $estado.className = `col-sm-8 alert alert-${clase}`;
+}
+
+function ganar() {
+    bloquearInputUsuario();
+    actualizarEstado('success', '¡Ganaste!');
+    setTimeout(function () {
+        reiniciarJuego();
+    }, 3000);
 }
 
 function agregarPaso(lista) {
@@ -85,7 +112,6 @@ function agregarPaso(lista) {
 }
 
 function resaltar($cuadro) {
-    console.log($cuadro);
     $cuadro.style.opacity = 1;
     setTimeout(function () {
         $cuadro.style.opacity = 0.5;
@@ -106,4 +132,8 @@ function mostrarBotonEmpezar() {
 
 function ocultarBotonReiniciar() {
     document.querySelector('#boton-reiniciar').className = 'btn btn-outline-danger oculto';
+}
+
+function actualizarRonda(ronda) {
+    document.querySelector('#ronda').textContent = `Ronda: ${ronda}`;
 }
