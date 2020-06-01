@@ -105,8 +105,8 @@ function ganar() {
 }
 
 function agregarPaso(lista) {
-    const numeroRandom = Math.floor(Math.random() * 4);
     const $cuadros = document.querySelectorAll('.cuadro');
+    const numeroRandom = Math.floor(Math.random() * $cuadros.length);
     lista.push($cuadros[numeroRandom]);
     return lista;
 }
