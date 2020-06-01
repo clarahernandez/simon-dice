@@ -2,41 +2,29 @@ body {
     text-align: center;
 }
 
-.verde-apagado {
-    background-color: #0c910c;
-}
-.verde-prendido {
-    background-color: rgb(6, 250, 6);
-    border: solid darkolivegreen;
+.oculto {
+    display: none;
 }
 
-.rojo-apagado {
+.cuadro {
+    opacity: 0.5;
+    transition: opacity 500ms;
+}
+
+#verde {
+    background-color: #0c910c;
+}
+
+#rojo {
     background-color: #d53032;
 }
 
-.rojo-prendido {
-    background-color: red;
-    border: solid brown;
-}
-
-.azul-apagado {
+#azul {
     background-color: #3f888f;
 }
-.azul-prendido {
-    background-color: blue;
-    border: solid darkblue;
-}
 
-.amarillo-apagado {
+#amarillo {
     background-color: #c9c91e;
-}
-.amarillo-prendido {
-    background-color: yellow;
-    border: solid darkgoldenrod;
-}
-
-.oculto {
-    display: none;
 }
 
 #pantalla-juego {

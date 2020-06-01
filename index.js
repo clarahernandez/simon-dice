@@ -1,13 +1,8 @@
 const NIVELES_MAX = 5;
-const COLORES = ['rojo', 'verde', 'amarillo', 'azul'];
+let simonDice = []; //lista de colores a seguir
+let ronda = 0;
 
-document.querySelector('#boton-empezar').onclick = function (event) {
-    ocultarBotonEmpezar();
-    mostrarBotonReiniciar();
-
-    empezar();
-    event.preventDefault();
-};
+document.querySelector('#boton-empezar').onclick = comenzarJuego;
 
 document.querySelector('#boton-reiniciar').onclick = function (event) {
     ocultarBotonReiniciar();
@@ -15,44 +10,27 @@ document.querySelector('#boton-reiniciar').onclick = function (event) {
     event.preventDefault();
 };
 
-function empezar() {
-    let simonDice = []; //lista de colores a seguir
-    let numeroNivel = 0;
-    let acerto = true;
-    while (numeroNivel < NIVELES_MAX && acerto) {
-        simonDice = agregarPaso(simonDice);
-        reproducir(simonDice);
-        acerto = turnoJugador(simonDice);
-    }
+function comenzarJuego() {
+    ocultarBotonEmpezar();
+    mostrarBotonReiniciar();
+
+    manejarRonda();
 }
 
-function turnoJugador(simonDice) {
-    console.log('turno del jugador');
-    let jugadorDice = [];
-    let acerto = true;
-    for (let i = 0; acerto && i < simonDice.length; i++) {
-        jugadorDice = agregaColorJugador(jugadorDice);
-        acerto = simonDice[i] === jugadorDice[i]; //Nos fijamos que lo que haya puesto el jugador sea igual a lo que simón dice.
-    }
-    return acerto;
-}
+let numeroRonda = 0;
+function manejarRonda() {
+    bloquearInputUsuario();
+    const RETRASO_TURNO_JUGADOR = (simonDice.length + 1) * 1000;
+    console.log(simonDice);
+    simonDice = agregarPaso(simonDice);
+    reproducir(simonDice);
 
-function agregaColorJugador(lista) {
-    document.querySelectorAll('.cuadro').forEach(function (cuadro) {
-        cuadro.addEventListener('click', function () {
-            lista.push(cuadro.id);
-        });
-    });
-    console.log(lista);
-    return lista;
-}
+    setTimeout(function () {
+        desbloquearInputUsuario();
+    }, RETRASO_TURNO_JUGADOR);
 
-function agregarPaso(lista) {
-    const numeroRandom = Math.floor(Math.random() * 4);
-    const color = COLORES[numeroRandom];
-
-    lista.push(color);
-    return lista;
+    ronda++;
+    usuarioDice = [];
 }
 
 function reproducir(lista) {
@@ -64,12 +42,54 @@ function reproducir(lista) {
     });
 }
 
-function resaltar(cuadro) {
-    let $cuadro = document.querySelector(`#${cuadro}`);
-    $cuadro.classList.replace(`${cuadro}-apagado`, `${cuadro}-prendido`);
+function bloquearInputUsuario() {
+    document.querySelectorAll('.cuadro').forEach(function ($cuadro) {
+        $cuadro.onclick = function () {}; //Le digo que cuando haga click no pase nada.
+    });
+}
+
+function desbloquearInputUsuario() {
+    document.querySelectorAll('.cuadro').forEach(function ($cuadro) {
+        $cuadro.onclick = manejarInputUsuario;
+    });
+}
+
+function manejarInputUsuario(e) {
+    const $cuadroUsuario = e.target;
+    resaltar($cuadroUsuario);
+    usuarioDice.push($cuadroUsuario);
+
+    const $cuadroSimon = simonDice[usuarioDice.length - 1];
+
+    if ($cuadroUsuario.id !== $cuadroSimon.id) {
+        perder();
+        return;
+    }
+    if (usuarioDice.length === simonDice.length) {
+        bloquearInputUsuario();
+        setTimeout(manejarRonda, 1000);
+    }
+}
+
+function perder() {
+    bloquearInputUsuario();
+    ocultarBotonReiniciar();
+    mostrarBotonEmpezar();
+}
+
+function agregarPaso(lista) {
+    const numeroRandom = Math.floor(Math.random() * 4);
+    const $cuadros = document.querySelectorAll('.cuadro');
+    lista.push($cuadros[numeroRandom]);
+    return lista;
+}
+
+function resaltar($cuadro) {
+    console.log($cuadro);
+    $cuadro.style.opacity = 1;
     setTimeout(function () {
-        $cuadro.classList.replace(`${cuadro}-prendido`, `${cuadro}-apagado`);
-    }, 1000);
+        $cuadro.style.opacity = 0.5;
+    }, 500);
 }
 
 function ocultarBotonEmpezar() {
